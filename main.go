@@ -22,7 +22,7 @@ type scoreServer struct {
 
 func NewScoreServer() *scoreServer {
 	// Connect to the SQLite database
-	db, err := sql.Open("sqlite3", "./my.db")
+	db, err := sql.Open("sqlite3", "./data/score.db")
 	if err != nil {
 		log.Println(err)
 		return nil
@@ -43,7 +43,7 @@ func (s *scoreServer) getAllScores(w http.ResponseWriter, req *http.Request) {
 	log.Printf("handling get task at %s\n", req.URL.Path)
 
 	// query scores from the database
-	rows, err := s.db.Query("SELECT * FROM scores")
+	rows, err := s.db.Query("SELECT * FROM scores ORDER BY score DESC LIMIT 10")
 	if err != nil {
 		log.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
