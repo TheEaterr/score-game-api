@@ -115,5 +115,5 @@ func main() {
 	}
 
 	log.Println("Starting server on :" + port)
-	log.Fatal(http.ListenAndServe("localhost:"+port, mux))
+	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
